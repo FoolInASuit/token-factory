@@ -1,0 +1,33 @@
+{
+  "name": "tokenfactory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "trf": "truffle",
+    "t-mig": "truffle migrate",
+    "t-mig-r": "truffle migrate --reset",
+    "t-cmp": "truffle compile",
+    "g-run": "ganache",
+    "t-test": "truffle test",
+    "t-exec": "truffle exec",
+    "migrate:sepiola": "dotenv -e .env -- truffle migrate --network sepolia",
+    "verify:sepolia": "dotenv -e .env -- truffle run verify TokenFactory --network sepolia"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.0",
+    "@truffle/hdwallet-provider": "^2.1.12",
+    "ganache": "^7.8.0",
+    "solc": "^0.8.20",
+    "truffle": "^5.9.4",
+    "web3": "^1.10.0"
+  },
+  "devDependencies": {
+    "@openzeppelin/test-helpers": "^0.5.16",
+    "dotenv-cli": "^7.2.1",
+    "truffle-plugin-verify": "^0.6.3"
+  }
+}
