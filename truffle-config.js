@@ -1,4 +1,5 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
+
 const { INFURA_SEPOLIA_URL, MNEMONIC, ETHERSCAN_KEY } = process.env;
 
 module.exports = {
