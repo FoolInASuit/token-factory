@@ -1,7 +1,7 @@
 const TokenFactory = artifacts.require('TokenFactory');
 const Token = artifacts.require('Token');
 
-const { expectRevert } = require('@openzeppelin/test-helpers');
+const { expectRevert, constants } = require('@openzeppelin/test-helpers');
 
 contract('TokenFactory', ([administrator, customer, tokenReciver]) => {
   let tokenFactoryInstance;
@@ -69,6 +69,24 @@ contract('TokenFactory', ([administrator, customer, tokenReciver]) => {
           from: administrator,
         }),
         'Invalid total supply'
+      );
+    });
+
+    it('should not allow sending tokens to address(0)', async () => {
+      const name = 'Token X';
+      const symbol = 'TX';
+
+      await expectRevert(
+        tokenFactoryInstance.createToken(
+          0,
+          constants.ZERO_ADDRESS,
+          name,
+          symbol,
+          {
+            from: administrator,
+          }
+        ),
+        'ERC20: mint to the zero address'
       );
     });
   });
