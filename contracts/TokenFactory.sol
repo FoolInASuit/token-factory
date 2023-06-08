@@ -13,9 +13,16 @@ contract TokenFactory is Ownable {
     function createToken(
         uint256 _supply,
         address _customer,
-        string memory _tokenName,
-        string memory _tokenSymbol
+        string calldata _tokenName,
+        string calldata _tokenSymbol
     ) public onlyOwner {
+        bytes memory tempTokenName = bytes(_tokenName);
+        bytes memory tempTokenSymbol = bytes(_tokenSymbol);
+
+        require(tempTokenName.length > 0, "Token name cannot be empty");
+        require(tempTokenSymbol.length > 0, "Token symbol cannot be empty");
+        require(_supply > 0, "Invalid total supply");
+
         Token token = new Token(
             owner(),
             _customer,

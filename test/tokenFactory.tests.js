@@ -35,6 +35,42 @@ contract('TokenFactory', ([administrator, customer, tokenReciver]) => {
       assert.equal(clientBalance, tokensInWei(1000));
       assert.equal(contractOwner, customer);
     });
+
+    it('should not allow empty token name', async () => {
+      const name = '';
+      const symbol = 'x';
+
+      await expectRevert(
+        tokenFactoryInstance.createToken(1000, customer, name, symbol, {
+          from: administrator,
+        }),
+        'Token name cannot be empty'
+      );
+    });
+
+    it('should not allow empty token symbol', async () => {
+      const name = 'Token X';
+      const symbol = '';
+
+      await expectRevert(
+        tokenFactoryInstance.createToken(0, customer, name, symbol, {
+          from: administrator,
+        }),
+        'Token symbol cannot be empty'
+      );
+    });
+
+    it('should not allow 0 supply', async () => {
+      const name = 'Token X';
+      const symbol = 'TX';
+
+      await expectRevert(
+        tokenFactoryInstance.createToken(0, customer, name, symbol, {
+          from: administrator,
+        }),
+        'Invalid total supply'
+      );
+    });
   });
 
   describe('Transfering Tokens', async () => {
